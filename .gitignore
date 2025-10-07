@@ -1,0 +1,7 @@
+# Godot 4+ specific ignores
+**.godot/
+**/android/
+**gitattributes
+/legends-of-cerythyl-(client)/.gitignore
+/legends-of-cerythyl-(server)/.gitignore
+**.editorconfig
