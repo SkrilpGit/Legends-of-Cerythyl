@@ -1,0 +1,18 @@
+config_version=5
+
+[application]
+
+config/name="Legends of Cerythyl (Server)"
+run/main_scene="uid://bu883x7ka1h5m"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+NetworkServer="*res://scripts/Network/network_server.gd"
+NetworkClock="*res://scripts/Network/network_clock.gd"
+NetworkActions="*res://scripts/Network/network_actions.gd"
+
+[dotnet]
+
+project/assembly_name="Legends of Ceryathyl"

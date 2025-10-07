@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk2cboqwal8cc"]
+
+[ext_resource type="Script" uid="uid://xnchj2fbbe16" path="res://scripts/UI/server_browser.gd" id="1_43ekl"]
+[ext_resource type="PackedScene" uid="uid://x3pdqsm0vmvv" path="res://scenes/game_state_manager.tscn" id="2_fayu8"]
+
+[node name="ServerBrowser" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_43ekl")
+gameScene = ExtResource("2_fayu8")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.19375
+anchor_right = 0.5
+anchor_bottom = 0.19375
+offset_left = -76.0
+offset_top = -11.5
+offset_right = 76.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Connect to a Server"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -68.0
+offset_right = 101.5
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="IPAddress" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/IPAddress"]
+layout_mode = 2
+text = "IP Address:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/IPAddress"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "0:0:0:0:0:0:0:1"
+expand_to_text_length = true
+
+[node name="Port" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Port"]
+layout_mode = 2
+text = "Port:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Port"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "1032"
+expand_to_text_length = true
+
+[node name="Connect" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Connect"
+
+[node name="Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Play"
+
+[connection signal="pressed" from="VBoxContainer/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]

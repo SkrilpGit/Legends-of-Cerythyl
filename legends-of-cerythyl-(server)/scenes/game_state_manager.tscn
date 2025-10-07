@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu883x7ka1h5m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qvk4k"]
+size = Vector3(200, 0.1, 200)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qvk4k"]
+
+[node name="GameStateManager" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_qvk4k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_qvk4k")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.76604444, -0.45451945, 0.45451945, 0, 0.70710677, 0.70710677, -0.6427876, -0.5416752, 0.5416752, 100, 40, 100)

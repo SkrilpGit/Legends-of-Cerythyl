@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://s863em6ask7b"]
+
+[ext_resource type="Script" uid="uid://bnvycledtd2ki" path="res://scripts/UI/main_menu.gd" id="1_qwnig"]
+[ext_resource type="PackedScene" uid="uid://bk2cboqwal8cc" path="res://scenes/UI/server_browser.tscn" id="2_yonvy"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qwnig")
+PlayScene = ExtResource("2_yonvy")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+grow_horizontal = 2
+grow_vertical = 2
+text = "Legends of Cerythyl"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="CreditsButton" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="Buttons/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="Buttons/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="Buttons/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
