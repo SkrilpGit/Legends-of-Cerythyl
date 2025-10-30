@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dssvimuy7krrb"]
+
+[ext_resource type="Script" uid="uid://b8k5t6ihhy6hf" path="res://server_viewer.gd" id="1_rf8x0"]
+
+[node name="ServerViewer" type="Camera3D"]
+script = ExtResource("1_rf8x0")

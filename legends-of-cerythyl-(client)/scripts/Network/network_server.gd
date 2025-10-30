@@ -78,7 +78,7 @@ func disconnectFromServer():
 	network.close()
 
 ## emitted by the ENetMultiplayerPeer we have named network
-func _peerConnected(peerId:int):
+func _peerConnected(_peerId:int):
 	print("Client: Connected to server.")
 	# emitting a redundant signal I hope
 	emit_signal("connected_to_server")
@@ -92,7 +92,7 @@ func _peerConnected(peerId:int):
 	NetworkClock.setupPingTimer()
 
 ## emitted by the ENetMultiplayerPeer we have named network
-func _peerDisconnected(peerId:int):
+func _peerDisconnected(_peerId:int):
 	print("Client: Disconnected from server.")
 	# emitting a redundant signal I hope
 	emit_signal("disconnected_from_server")

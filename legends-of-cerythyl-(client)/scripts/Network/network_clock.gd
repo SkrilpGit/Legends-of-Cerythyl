@@ -14,7 +14,7 @@ const SEC_PER_FRAME:float = MS_PER_FRAME/1000.0
 ## for right now I'm co-opting the normal ping requests and also updating the
 ## players position with the same frequency/Timer so this value is way lower
 ## than it will be, this leads to the as described jitter on the ping value
-const MS_PER_PING:int = 16.7 # 16.7 is equal to 1 ping per tick at 60FPS
+const MS_PER_PING:int = 200 # 16.7 is equal to 1 ping per tick at 60FPS
 
 # we instance a Timer node and use one of its cool functions the Timeout signal
 # to regulate when we're sending pings to the server

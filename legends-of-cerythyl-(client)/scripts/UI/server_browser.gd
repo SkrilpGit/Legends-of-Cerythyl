@@ -13,6 +13,7 @@ var connectButton: Button
 
 func _ready() -> void:
 	NetworkServer.connected_to_server.connect(_on_connection)
+	NetworkServer.disconnected_from_server.connect(_on_disconnection)
 	addressEdit = $VBoxContainer/IPAddress/LineEdit
 	portEdit = $VBoxContainer/Port/LineEdit
 	connectButton = $VBoxContainer/Connect
@@ -23,7 +24,7 @@ func _on_connect_pressed() -> void:
 		NetworkServer.disconnectFromServer()
 		connectButton.text = "Connect"
 		connected = false
-		$VBoxContainer/Play.disabled = true
+		
 		return
 	
 	IP_Address = addressEdit.text
@@ -40,6 +41,12 @@ func _on_connection():
 	connectButton.text = "Disconnect"
 	pass
 
+func _on_disconnection():
+	print("ServerBrowser: DISCONNECTED!")
+	connected = false
+	connectButton.text = "Connect"
+	$VBoxContainer/Play.disabled = true
+	pass
 
 func _on_play_pressed() -> void:
 	print("ServerBrowser: loading game...")

@@ -23,20 +23,14 @@ var paused = false
 var input_dir = Vector2.ZERO
 var look_dir : Basis
 var wish_dir = Vector3.ZERO
+var prev_pos = Vector3.ZERO
 
 func _ready() -> void:
 	campivot = find_child("CameraPivot")
 	cam = campivot.find_child("Camera")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	var prev_pos = global_position
 	
-	## so this is where I'm setting up the Network calls and weirdly initialising
-	## the gameManager variable on the NetworkActions Script
-	# connect the requestingPing signal to the _sendPosition function
-	NetworkClock.requestingPing.connect(_sendPosition)
-	# because the gameManager doesn't exist when we boot the game, I'm doing it
-	# here because when the player exists the gameManager also exists, bad solution
-	# and in fact there's a better way to instance the player anyway so I'll change this
-	NetworkActions.gameManager = get_parent()
 	# telling the server to spawn in our player, lets goooooo
 	NetworkActions.s_spawnPlayer.rpc_id(1,global_position)
 
@@ -52,6 +46,12 @@ func _physics_process(_delta: float) -> void:
 		velocity.y -= gravity * _delta
 	
 	move_and_slide()
+	
+	if global_position != prev_pos:
+		_sendPosition()
+		#print("SENDING POSITION TO SERVER")
+	
+	prev_pos = global_position
 
 ## input handling is always fun, for this script I've also included a cool match
 ## case solution for actions, the complicated stuff is in the Inputs Singleton
@@ -79,8 +79,8 @@ func _input(event: InputEvent) -> void:
 		"zoom_out":
 			cam.Zoom(false)
 
-## whenever we send a ping we are also sending our players position
-## I might want to change the function names to be less opaque though
+## whenever our position changes between physics ticks, we update our player
+## position with the server.
 func _sendPosition():
-	NetworkActions.sendPosition.rpc_id(1,global_position)
+	NetworkActions.s_updatePosition.rpc_id(1,global_position)
 	#print("At ",NetworkClock.clientTick," I was at ",global_position)

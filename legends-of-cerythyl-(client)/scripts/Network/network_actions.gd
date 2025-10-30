@@ -19,7 +19,7 @@ func _ready() -> void:
 
 ## sends the local Players position to the server to update there
 @rpc ("any_peer","unreliable_ordered")
-func sendPosition(ClientPosition:Vector3):
+func s_updatePosition(_ClientPosition:Vector3):
 	print("sending position to server...")
 	pass
 
@@ -43,7 +43,7 @@ func c_spawnPlayer(Position:Vector3,Id:int):
 ## update the position of a network player locally, reliable means we check to
 ## make sure the packets are recieved, might change this to unreliable later.
 @rpc ("reliable")
-func updatePosition(Position:Vector3,Id:int):
+func c_updatePosition(Position:Vector3,Id:int):
 	# finding the relevant player within the netPlayers Dictionary and updating
 	# the object to the new position, very crude but that's where we are rn
 	var player = netPlayers[Id]
@@ -68,7 +68,7 @@ func c_deletePlayer(Id:int):
 ## above I used c_ to reference its a client function, keeping this convention
 ## will be helpful going forward.
 @rpc ("any_peer", "reliable")
-func s_spawnPlayer(Position:Vector3):
+func s_spawnPlayer(_Position:Vector3):
 	print("spawn player on server...")
 	pass
 

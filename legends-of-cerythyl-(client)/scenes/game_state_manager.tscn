@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://x3pdqsm0vmvv"]
+[gd_scene load_steps=5 format=3 uid="uid://x3pdqsm0vmvv"]
 
 [ext_resource type="PackedScene" uid="uid://v4qkwv14j44e" path="res://scenes/player.tscn" id="1_4hkbw"]
+[ext_resource type="Script" uid="uid://b2alymrywskf4" path="res://scripts/game_state_manager.gd" id="1_fwy8p"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qvk4k"]
 
@@ -8,6 +9,7 @@
 size = Vector3(200, 0.1, 200)
 
 [node name="GameStateManager" type="Node3D"]
+script = ExtResource("1_fwy8p")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
