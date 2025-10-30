@@ -39,6 +39,9 @@ func _physics_process(_delta: float) -> void:
 	look_dir = Basis(Vector3.UP,campivot.rotation.y)
 	wish_dir = look_dir*Vector3(input_dir.x,0,input_dir.y)
 	
+	if wish_dir != Vector3.ZERO:
+		NetworkActions.s_movePlayer.rpc_id(1,wish_dir)
+	
 	velocity.x = wish_dir.x * movespeed
 	velocity.z = wish_dir.z * movespeed
 	
@@ -47,11 +50,11 @@ func _physics_process(_delta: float) -> void:
 	
 	move_and_slide()
 	
-	if global_position != prev_pos:
-		_sendPosition()
-		#print("SENDING POSITION TO SERVER")
-	
-	prev_pos = global_position
+	#if global_position != prev_pos:
+		#_sendPosition()
+		##print("SENDING POSITION TO SERVER")
+	#
+	#prev_pos = global_position
 
 ## input handling is always fun, for this script I've also included a cool match
 ## case solution for actions, the complicated stuff is in the Inputs Singleton
@@ -74,6 +77,7 @@ func _input(event: InputEvent) -> void:
 		"move_jump":
 			if is_on_floor():
 				velocity.y += jumpforce
+				NetworkActions.s_jump.rpc_id(1)
 		"zoom_in":
 			cam.Zoom(true)
 		"zoom_out":

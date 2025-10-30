@@ -50,6 +50,36 @@ func s_updatePosition(ClientPosition:Vector3):
 		if id != ClientId:
 			c_updatePosition.rpc_id(id,ClientPosition,ClientId)
 
+@rpc ("any_peer","reliable")
+func s_pingPosition(ClientPos:Vector3,ClientTick:int):
+	var ClientId:int = multiplayer.get_remote_sender_id()
+	
+	var player = activePlayers[ClientId]
+	
+	c_pongPosition.rpc_id(ClientId,ClientPos,ClientTick,player.global_position,NetworkClock.serverTick)
+	pass
+
+@rpc ("reliable")
+func c_pongPosition(_clientPos:Vector3,_clientTick:int,_serverPos:Vector3,_serverTick:int):
+	pass
+
+@rpc ("any_peer","unreliable_ordered")
+func s_movePlayer(wish_dir:Vector3):
+	#print("THE PLAYER WISHES TO MOVE")
+	var ClientId:int = multiplayer.get_remote_sender_id()
+	
+	var player = activePlayers[ClientId]
+	
+	player.move(wish_dir)
+
+@rpc ("any_peer","unreliable_ordered")
+func s_jump():
+	var ClientId:int = multiplayer.get_remote_sender_id()
+	
+	var player = activePlayers[ClientId]
+	
+	player.jump()
+
 ## spawning player on the server, and then also on the other clients
 @rpc ("any_peer", "reliable")
 func s_spawnPlayer(Position:Vector3):

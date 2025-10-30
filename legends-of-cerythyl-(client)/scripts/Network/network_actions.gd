@@ -19,8 +19,30 @@ func _ready() -> void:
 
 ## sends the local Players position to the server to update there
 @rpc ("any_peer","unreliable_ordered")
-func s_updatePosition(_ClientPosition:Vector3):
-	print("sending position to server...")
+func s_updatePosition(_Position:Vector3):
+	print("Sending Position to Server...")
+	pass
+
+@rpc ("any_peer","reliable")
+func s_pingPosition(_clientPos:Vector3, _clientTick:int):
+	print("pinging position of player")
+	pass
+
+@rpc ("reliable")
+func c_pongPosition(
+	clientPos:Vector3,clientTick:int,
+	serverPos:Vector3,serverTick:int):
+		gameManager.check_position(clientPos,clientTick,serverPos,serverTick)
+		pass
+
+@rpc ("any_peer","unreliable_ordered")
+func s_movePlayer(_wish_dir:Vector3):
+	print("Sending Wish_Dir to Server...")
+	print(_wish_dir)
+	pass
+@rpc ("any_peer","unreliable_ordered")
+func s_jump():
+	print("Requesting to Jump")
 	pass
 
 ## spawns a player locally from the server, will run as a reply from the server
