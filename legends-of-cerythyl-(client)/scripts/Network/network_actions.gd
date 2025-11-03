@@ -17,33 +17,13 @@ func _ready() -> void:
 
 #region ACTIONS
 
-## sends the local Players position to the server to update there
-@rpc ("any_peer","unreliable_ordered")
-func s_updatePosition(_Position:Vector3):
-	print("Sending Position to Server...")
-	pass
-
-@rpc ("any_peer","reliable")
-func s_pingPosition(_clientPos:Vector3, _clientTick:int):
-	print("pinging position of player")
-	pass
-
+#syncing the position of the player with the server's version of the player
 @rpc ("reliable")
 func c_pongPosition(
 	clientPos:Vector3,clientTick:int,
 	serverPos:Vector3,serverTick:int):
 		gameManager.check_position(clientPos,clientTick,serverPos,serverTick)
 		pass
-
-@rpc ("any_peer","unreliable_ordered")
-func s_movePlayer(_wish_dir:Vector3):
-	print("Sending Wish_Dir to Server...")
-	print(_wish_dir)
-	pass
-@rpc ("any_peer","unreliable_ordered")
-func s_jump():
-	print("Requesting to Jump")
-	pass
 
 ## spawns a player locally from the server, will run as a reply from the server
 ## for every player that is connected to the server, until I start chunking stuff
@@ -64,7 +44,7 @@ func c_spawnPlayer(Position:Vector3,Id:int):
 
 ## update the position of a network player locally, reliable means we check to
 ## make sure the packets are recieved, might change this to unreliable later.
-@rpc ("reliable")
+@rpc ("unreliable_ordered")
 func c_updatePosition(Position:Vector3,Id:int):
 	# finding the relevant player within the netPlayers Dictionary and updating
 	# the object to the new position, very crude but that's where we are rn
@@ -83,6 +63,9 @@ func c_deletePlayer(Id:int):
 	netPlayers.erase(Id)
 	pass
 
+#endregion
+
+#region PARITY
 ## spawning the local Player on the server, this type of function is what we call
 ## a parity function, in order for rpc functions to do they thing, a function with
 ## the same name and parameters needs to be present on both the client and server
@@ -92,6 +75,27 @@ func c_deletePlayer(Id:int):
 @rpc ("any_peer", "reliable")
 func s_spawnPlayer(_Position:Vector3):
 	print("spawn player on server...")
+	pass
+
+@rpc ("any_peer","unreliable_ordered")
+func s_updatePosition(_Position:Vector3):
+	print("Sending Position to Server...")
+	pass
+
+@rpc ("any_peer","reliable")
+func s_pingPosition(_clientPos:Vector3, _clientTick:int):
+	print("pinging position of player")
+	pass
+
+
+@rpc ("any_peer","unreliable_ordered")
+func s_movePlayer(_wish_dir:Vector3):
+	print("Sending Wish_Dir to Server...")
+	print(_wish_dir)
+	pass
+@rpc ("any_peer","unreliable_ordered")
+func s_jump():
+	print("Requesting to Jump")
 	pass
 
 #endregion

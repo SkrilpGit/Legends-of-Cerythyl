@@ -18,6 +18,11 @@ shape = SubResource("CapsuleShape3D_u8vuu")
 mesh = SubResource("CapsuleMesh_3vyb7")
 skeleton = NodePath("../CapsuleCollider")
 
+[node name="CapsuleMesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 0, 0, 0.77257776)
+mesh = SubResource("CapsuleMesh_3vyb7")
+skeleton = NodePath("../CapsuleCollider")
+
 [node name="CameraPivot" type="Node3D" parent="."]
 
 [node name="Camera" type="Camera3D" parent="CameraPivot"]

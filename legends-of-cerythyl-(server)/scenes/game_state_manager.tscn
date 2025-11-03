@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu883x7ka1h5m"]
+[gd_scene load_steps=5 format=3 uid="uid://bu883x7ka1h5m"]
+
+[ext_resource type="PackedScene" uid="uid://dssvimuy7krrb" path="res://scenes/server_viewer.tscn" id="1_4hkbw"]
+[ext_resource type="PackedScene" uid="uid://ctw5agfuspe0n" path="res://scenes/enemy.tscn" id="2_fwy8p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvk4k"]
 size = Vector3(200, 0.1, 200)
@@ -20,5 +23,8 @@ mesh = SubResource("PlaneMesh_qvk4k")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.76604444, -0.45451945, 0.45451945, 0, 0.70710677, 0.70710677, -0.6427876, -0.5416752, 0.5416752, 100, 40, 100)
+[node name="ServerViewer" parent="." instance=ExtResource("1_4hkbw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Enemy" parent="." instance=ExtResource("2_fwy8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13307953, 0.26199627, -12.336063)

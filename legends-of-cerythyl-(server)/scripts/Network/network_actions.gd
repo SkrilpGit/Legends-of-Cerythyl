@@ -59,9 +59,7 @@ func s_pingPosition(ClientPos:Vector3,ClientTick:int):
 	c_pongPosition.rpc_id(ClientId,ClientPos,ClientTick,player.global_position,NetworkClock.serverTick)
 	pass
 
-@rpc ("reliable")
-func c_pongPosition(_clientPos:Vector3,_clientTick:int,_serverPos:Vector3,_serverTick:int):
-	pass
+
 
 @rpc ("any_peer","unreliable_ordered")
 func s_movePlayer(wish_dir:Vector3):
@@ -107,13 +105,17 @@ func s_spawnPlayer(Position:Vector3):
 #region PARITY
 @rpc ("reliable")
 func c_spawnPlayer(_Position:Vector3,_Id:int):
-	print("spawning player locally")
+	print("spawning player locally: ",_Id)
 	pass
 
 @rpc ("reliable")
 func c_deletePlayer(_Id:int):pass
 
-@rpc ("reliable")
+@rpc ("unreliable_ordered")
 func c_updatePosition(_Position:Vector3,_Id:int):pass
+
+@rpc ("reliable")
+func c_pongPosition(_clientPos:Vector3,_clientTick:int,
+_serverPos:Vector3,_serverTick:int):pass
 
 #endregion

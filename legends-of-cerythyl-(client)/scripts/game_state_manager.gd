@@ -27,7 +27,7 @@ func check_position(clientPos,clientTick,serverPos,serverTick) -> void:
 	print("dif_tick: ",dif_tick," dif_pos: ",dif_pos," difference: ", dif_pos - dif_tick)
 	dif_pos = round(dif_pos)
 	
-	if dif_pos > dif_tick:
+	if dif_pos > abs(dif_tick):
 		player.global_position = serverPos
 		print("resynching...")
 	pass
