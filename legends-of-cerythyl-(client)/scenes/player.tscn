@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://v4qkwv14j44e"]
 
-[ext_resource type="Script" uid="uid://6rot2cabbaf" path="res://scripts/Player/player_movement.gd" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://b7p5q2fyo440h" path="res://scripts/Player/player_camera.gd" id="2_g2els"]
+[ext_resource type="Script" uid="uid://6rot2cabbaf" path="res://scripts/Actors/Player/player_movement.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://b7p5q2fyo440h" path="res://scripts/Actors/Player/player_camera.gd" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 
@@ -27,4 +27,5 @@ skeleton = NodePath("../CapsuleCollider")
 
 [node name="Camera" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5026374, 3)
+current = true
 script = ExtResource("2_g2els")

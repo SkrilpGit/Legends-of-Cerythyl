@@ -7,11 +7,15 @@ extends CharacterBody3D
 
 var prev_pos = Vector3.ZERO
 var wish_dir = Vector3.ZERO
+var ourId: int
 
 func _ready():
 	prev_pos = global_position
+	get_parent().connect("IdChanged",update_Id)
 
 func _physics_process(_delta: float) -> void:
+	
+	#ourId = get_parent().ID
 	
 	velocity.x = wish_dir.x * movespeed
 	velocity.z = wish_dir.z * movespeed
@@ -22,11 +26,15 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	
 	for id in NetworkActions.activePlayers:
-		if id != int(name):
-			NetworkActions.c_updatePosition.rpc_id(id,global_position,int(name))
+		#print(get_parent().ID)
+		if id != ourId:
+			NetworkActions.c_updatePosition.rpc_id(id,global_position,ourId)
 	
 	prev_pos = global_position
 	wish_dir = Vector3.ZERO
+
+func update_Id(id):
+	ourId = id
 
 func move(dir):
 	print(dir)

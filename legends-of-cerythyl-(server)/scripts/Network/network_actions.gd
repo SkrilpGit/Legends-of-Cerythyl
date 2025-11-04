@@ -8,6 +8,7 @@ var gameManager:Node3D
 
 # a Dictionary of the connected players with the key [Id] and value = Object
 var activePlayers = {}
+var networkObjects = {}
 
 func _ready() -> void:
 	Player = preload("res://scenes/player.tscn")
@@ -56,7 +57,7 @@ func s_pingPosition(ClientPos:Vector3,ClientTick:int):
 	
 	var player = activePlayers[ClientId]
 	
-	c_pongPosition.rpc_id(ClientId,ClientPos,ClientTick,player.global_position,NetworkClock.serverTick)
+	c_pongPosition.rpc_id(ClientId,ClientPos,ClientTick,player.get_pos(),NetworkClock.serverTick)
 	pass
 
 
@@ -87,7 +88,7 @@ func s_spawnPlayer(Position:Vector3):
 	# again we need to add the instance to the scene tree before doing anything
 	gameManager.add_child(player)
 	player.global_position = Position
-	player.name = str(ClientId)
+	player.set_ID(ClientId)
 	
 	#print(player)
 	## add the new player to the players table
@@ -99,6 +100,10 @@ func s_spawnPlayer(Position:Vector3):
 		if id != ClientId:
 			c_spawnPlayer.rpc_id(ClientId,activePlayers[id].global_position,id)
 			c_spawnPlayer.rpc_id(id,activePlayers[ClientId].global_position,ClientId)
+		for Id in networkObjects:
+			#print(networkObjects)
+			var obj = networkObjects[Id]
+			c_spawnObject.rpc_id(id,obj.name,obj.TYPE,obj.global_position,obj.sceneId,Id)
 	pass
 #endregion
 
@@ -107,6 +112,10 @@ func s_spawnPlayer(Position:Vector3):
 func c_spawnPlayer(_Position:Vector3,_Id:int):
 	print("spawning player locally: ",_Id)
 	pass
+
+@rpc ("reliable")
+func c_spawnObject(_name:String,_type:NetworkObject.TYPES,
+_position:Vector3,_sceneId:int,_Id:int):pass
 
 @rpc ("reliable")
 func c_deletePlayer(_Id:int):pass

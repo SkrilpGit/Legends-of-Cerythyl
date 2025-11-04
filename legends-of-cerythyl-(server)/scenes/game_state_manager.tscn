@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bu883x7ka1h5m"]
+[gd_scene load_steps=6 format=3 uid="uid://bu883x7ka1h5m"]
 
 [ext_resource type="PackedScene" uid="uid://dssvimuy7krrb" path="res://scenes/server_viewer.tscn" id="1_4hkbw"]
+[ext_resource type="Script" uid="uid://cjyqprv0oaixo" path="res://scripts/game_state_manager.gd" id="1_88jix"]
 [ext_resource type="PackedScene" uid="uid://ctw5agfuspe0n" path="res://scenes/enemy.tscn" id="2_fwy8p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qvk4k"]
@@ -9,6 +10,7 @@ size = Vector3(200, 0.1, 200)
 [sub_resource type="PlaneMesh" id="PlaneMesh_qvk4k"]
 
 [node name="GameStateManager" type="Node3D"]
+script = ExtResource("1_88jix")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

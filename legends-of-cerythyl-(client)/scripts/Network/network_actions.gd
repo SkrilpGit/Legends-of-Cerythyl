@@ -40,7 +40,12 @@ func c_spawnPlayer(Position:Vector3,Id:int):
 	player.name = str(Id)
 	#adding the new player into the table of network players
 	netPlayers[Id] = player
-	
+
+@rpc ("reliable")
+func c_spawnObject(Name:String,type:NetworkObject.TYPES,position:Vector3,
+sceneId:int,Id:int):
+	print(Name," ",type," ",position,' ',sceneId,' ',Id)
+	gameManager.spawnObject(Name,type,position,sceneId,Id)
 
 ## update the position of a network player locally, reliable means we check to
 ## make sure the packets are recieved, might change this to unreliable later.
@@ -48,6 +53,7 @@ func c_spawnPlayer(Position:Vector3,Id:int):
 func c_updatePosition(Position:Vector3,Id:int):
 	# finding the relevant player within the netPlayers Dictionary and updating
 	# the object to the new position, very crude but that's where we are rn
+	print(netPlayers)
 	var player = netPlayers[Id]
 	player.global_position = Position
 

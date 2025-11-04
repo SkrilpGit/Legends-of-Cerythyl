@@ -1,6 +1,7 @@
 extends Node3D
 
 var main_menu = "uid://s863em6ask7b" ## main_menu.tscn UID
+var Enemy = "uid://dj21fvehfesb2"
 var player = CharacterBody3D
 
 func _ready() -> void:
@@ -16,6 +17,20 @@ func _on_disconnection() -> void:
 	var path = ResourceUID.uid_to_path(main_menu)
 	get_tree().change_scene_to_file(path)
 
+func spawnObject(Name:String,type:NetworkObject.TYPES,Position:Vector3,
+sceneId:int,Id:int):
+	#print(Name," ",type," ",position,' ',sceneId,' ',Id)
+	if type == NetworkObject.TYPES.NPC:
+		match sceneId:
+			1:
+				var enemy = load(ResourceUID.uid_to_path(Enemy)).instantiate()
+				add_child(enemy)
+				enemy.name = Name
+				enemy.TYPE = type
+				enemy.global_position = Position
+				enemy.sceneId = sceneId
+				enemy.ID = Id
+
 func pingPosition():
 	NetworkActions.s_pingPosition.rpc_id(1,player.global_position,NetworkClock.clientTick)
 
@@ -24,10 +39,10 @@ func check_position(clientPos,clientTick,serverPos,serverTick) -> void:
 	var move_offset = player.movespeed*NetworkClock.SEC_PER_FRAME
 	var dif_pos = Vector3(serverPos - clientPos).length() * move_offset
 	
-	print("dif_tick: ",dif_tick," dif_pos: ",dif_pos," difference: ", dif_pos - dif_tick)
+	#print("dif_tick: ",dif_tick," dif_pos: ",dif_pos," difference: ", dif_pos - dif_tick)
 	dif_pos = round(dif_pos)
 	
 	if dif_pos > abs(dif_tick):
 		player.global_position = serverPos
-		print("resynching...")
+		#print("resynching...")
 	pass

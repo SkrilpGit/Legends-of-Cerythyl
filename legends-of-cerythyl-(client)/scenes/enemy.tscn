@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctw5agfuspe0n"]
+[gd_scene load_steps=5 format=3 uid="uid://dj21fvehfesb2"]
 
-[ext_resource type="Script" uid="uid://dttn75ybd2m23" path="res://scripts/Actors/Enemy/enemy.gd" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://b4mnpu7kuub15" path="res://scripts/Actors/Enemy/enemy.gd" id="1_7p1mj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8tegq"]
 radius = 0.8
@@ -18,12 +18,12 @@ script = ExtResource("1_7p1mj")
 TYPE = 1
 sceneId = 1
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+[node name="EnemyBody" type="StaticBody3D" parent="."]
 
-[node name="CapsuleCollider" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="CapsuleCollider" type="CollisionShape3D" parent="EnemyBody"]
 shape = SubResource("CapsuleShape3D_8tegq")
 
-[node name="CapsuleMesh" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="CapsuleMesh" type="MeshInstance3D" parent="EnemyBody"]
 mesh = SubResource("CapsuleMesh_7p1mj")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_8tegq")
